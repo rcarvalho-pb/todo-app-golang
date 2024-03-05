@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS todos (
     id INTEGER,
     name TEXT NOT NULL,
     description TEXT NOT NULL,
-    status INTEGER DEFAULT 0,
+    status INTEGER DEFAULT 1,
     created_at DATE DEFAULT CURRENT_TIMESTAMP,
     last_modified_date DATE DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_todos PRIMARY KEY (id)
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
     last_name TEXT NOT NULL,
     email TEXT NOT NULL,
     password TEXT NOT NULL,
-    create_at DATE DEFAULT CURRENT_TIMESTAMP,
+    created_at DATE DEFAULT CURRENT_TIMESTAMP,
     last_modified_date DATE DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_users PRIMARY KEY (id)
 );

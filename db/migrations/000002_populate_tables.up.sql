@@ -1,6 +1,7 @@
 INSERT INTO todos (name, description) VALUES
     ('Teste 01', 'Primeiro Teste'),
-    ('Teste 02', 'Segundo Teste');
+    ('Teste 02', 'Segundo Teste'),
+    ('Teste 03', 'Terceiro Teste');
 
 INSERT INTO users (first_name, last_name, email, password) VALUES
     ('Ramon', 'Carvalho', 'ramon@email.com', '123'),
@@ -8,6 +9,6 @@ INSERT INTO users (first_name, last_name, email, password) VALUES
 
 INSERT INTO todos_users VALUES 
     (1, 1),
-    (1, 2),
     (2, 1),
-    (2, 2);
+    (2, 2),
+    (3, 1);
