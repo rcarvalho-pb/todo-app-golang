@@ -11,8 +11,8 @@ func JSON(w http.ResponseWriter, statusCode int, data any) {
 
 	if data != nil {
 		if err := json.NewEncoder(w).Encode(struct {
-			Status  int `json:"status,omitempty"`
-			Content any `json:"content,omitempty"`
+			Status  int
+			Content any
 		}{
 			Status:  statusCode,
 			Content: data,
@@ -30,4 +30,12 @@ func JSON(w http.ResponseWriter, statusCode int, data any) {
 			log.Fatal(err)
 		}
 	}
+}
+
+func ERROR(w http.ResponseWriter, statusCode int, err error) {
+	JSON(w, statusCode, struct {
+		Error string
+	}{
+		Error: err.Error(),
+	})
 }

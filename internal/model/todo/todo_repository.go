@@ -5,5 +5,5 @@ type ITodoRepository interface {
 	FindAll() (*[]TodoModel, error)
 	FindById(id int64) (*TodoModel, error)
 	FindAllByUserId(id int64) (*[]TodoModel, error)
-	DeleteById(id int64) (bool, error)
+	DeleteById(id int64) error
 }

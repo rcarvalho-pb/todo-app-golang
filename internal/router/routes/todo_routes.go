@@ -10,7 +10,7 @@ import (
 	"github.com/rcarvalho-pb/todo-app-golang/internal/service"
 )
 
-const TODO_RESOURCE = "todo"
+const TODO_RESOURCE = "todos"
 
 var todoController controller.TodoController
 

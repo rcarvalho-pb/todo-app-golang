@@ -44,21 +44,21 @@ func (ts *TodoService) UpdateTodo(todo *todo_model.TodoModel) (int64, error) {
 		loadTodo.Users = todo.Users
 	}
 
-	return ts.Save(loadTodo)
+	return ts.ITodoRepository.Save(loadTodo)
 }
 
 func (ts *TodoService) FindAll() (*[]todo_model.TodoModel, error) {
-	return ts.FindAll()
+	return ts.ITodoRepository.FindAll()
 }
 
 func (ts *TodoService) FindById(id int64) (*todo_model.TodoModel, error) {
-	return ts.FindById(id)
+	return ts.ITodoRepository.FindById(id)
 }
 
 func (ts *TodoService) FindAllByUserId(id int64) (*[]todo_model.TodoModel, error) {
-	return ts.FindAllByUserId(id)
+	return ts.ITodoRepository.FindAllByUserId(id)
 }
 
-func (ts *TodoService) DeleteById(id int64) (bool, error) {
-	return ts.DeleteById(id)
+func (ts *TodoService) DeleteById(id int64) error {
+	return ts.ITodoRepository.DeleteById(id)
 }

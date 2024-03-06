@@ -5,4 +5,4 @@ migrate:
 	migrate -database sqlite3://db/database.db -path ./db/migrations $(type)
 
 run:
-	go run cmd/main.go
+	air

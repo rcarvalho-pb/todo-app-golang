@@ -43,6 +43,13 @@ func (tr *TodoRepository) FindAll() (*[]todo_model.TodoModel, error) {
 	if err := tr.Select(&todos, "SELECT * FROM todos ORDER BY name"); err != nil {
 		return &[]todo_model.TodoModel{}, err
 	}
+	for i, todo := range todos {
+		var users []user_model.User
+		if err := tr.Select(&users, "SELECT u.* FROM users u JOIN todos_users tu ON u.id = tu.user_id WHERE tu.todo_id=$1 ORDER BY u.first_name", todo.ID); err != nil {
+			return &[]todo_model.TodoModel{}, err
+		}
+		todos[i].Users = users
+	}
 
 	return &todos, nil
 }
@@ -52,6 +59,11 @@ func (tr *TodoRepository) FindById(id int64) (*todo_model.TodoModel, error) {
 	if err := tr.Get(&todo, "SELECT * FROM todos WHERE id=$1", id); err != nil {
 		return &todo_model.TodoModel{}, err
 	}
+	var users []user_model.User
+	if err := tr.Select(&users, "SELECT u.* FROM users u JOIN todos_users tu ON u.id = tu.user_id WHERE tu.todo_id=$1", todo.ID); err != nil {
+		return &todo_model.TodoModel{}, err
+	}
+	todo.Users = users
 
 	return &todo, nil
 }
@@ -72,13 +84,13 @@ func (tr *TodoRepository) FindAllByUserId(id int64) (*[]todo_model.TodoModel, er
 	return &todos, nil
 }
 
-func (tr *TodoRepository) DeleteById(id int64) (bool, error) {
+func (tr *TodoRepository) DeleteById(id int64) error {
 	tx := tr.MustBegin()
 	tx.MustExec("DELETE FROM todos_users WHERE todo_id=$1", id)
 	tx.MustExec("DELETE FROM todos WHERE id=$1", id)
 	if err := tx.Commit(); err != nil {
-		return false, err
+		return err
 	}
 
-	return true, nil
+	return nil
 }
