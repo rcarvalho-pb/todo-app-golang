@@ -26,6 +26,15 @@ func (tr *TodoRepository) Save(todo *todo_model.TodoModel) (int64, error) {
 		return 0, err
 	}
 
+	if todo.Users != nil {
+		for _, u := range todo.Users {
+			_, err = tr.Exec("INSERT INTO todos_users VALUES ($1, $2)", id, u.ID)
+			if err != nil {
+				return id, err
+			}
+		}
+	}
+
 	return id, nil
 }
 
