@@ -8,13 +8,14 @@ import (
 )
 
 type TodoModel struct {
-	ID               int64             `db:"id,omitempty"`
-	Name             string            `db:"name,omitempty"`
-	Description      string            `db:"description,omitempty"`
-	Status           int64             `db:"status,omitempty"`
-	CreatedAt        time.Time         `db:"created_at,omitempty"`
-	LastModifiedDate time.Time         `db:"last_modified_date,omitempty"`
-	Users            []user_model.User `db:"-"`
+	ID               int64                  `db:"id,omitempty"`
+	Name             string                 `db:"name,omitempty"`
+	Description      string                 `db:"description,omitempty"`
+	Status           int64                  `db:"status,omitempty"`
+	CreatedAt        time.Time              `db:"created_at,omitempty"`
+	LastModifiedDate time.Time              `db:"last_modified_date,omitempty"`
+	Avaliable        bool                   `db:"avaliable"`
+	Users            []user_model.UserModel `db:"-"`
 }
 
 var StatusType = map[string]int64{

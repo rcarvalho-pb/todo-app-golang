@@ -18,8 +18,10 @@ func ConfigRouter(r *mux.Router, db *sqlx.DB) *mux.Router {
 	var routes []Route
 
 	todoRoutes := initTodoRoutes(db)
+	userRoutes := initUserRoutes(db)
 
 	routes = append(routes, todoRoutes...)
+	routes = append(routes, userRoutes...)
 
 	for _, route := range routes {
 		if route.Authentication {

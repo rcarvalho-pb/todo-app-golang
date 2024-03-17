@@ -10,18 +10,18 @@ type TodoService struct {
 	todo_model.ITodoRepository
 }
 
-func New(todoRepository todo_model.ITodoRepository) *TodoService {
+func NewTodoService(todoRepository todo_model.ITodoRepository) *TodoService {
 	return &TodoService{
 		ITodoRepository: todoRepository,
 	}
 }
 
 func (ts *TodoService) CreateTodo(todo *todo_model.TodoModel) (int64, error) {
-	return ts.Save(todo)
+	return ts.SaveTodo(todo)
 }
 
 func (ts *TodoService) UpdateTodo(todo *todo_model.TodoModel) (int64, error) {
-	loadTodo, err := ts.FindById(todo.ID)
+	loadTodo, err := ts.FindTodoById(todo.ID)
 	if err != nil {
 		return 0, err
 	}
@@ -44,21 +44,21 @@ func (ts *TodoService) UpdateTodo(todo *todo_model.TodoModel) (int64, error) {
 		loadTodo.Users = todo.Users
 	}
 
-	return ts.ITodoRepository.Save(loadTodo)
+	return ts.ITodoRepository.SaveTodo(loadTodo)
 }
 
-func (ts *TodoService) FindAll() (*[]todo_model.TodoModel, error) {
-	return ts.ITodoRepository.FindAll()
+func (ts *TodoService) FindAllTodos() (*[]todo_model.TodoModel, error) {
+	return ts.ITodoRepository.FindAllTodos()
 }
 
-func (ts *TodoService) FindById(id int64) (*todo_model.TodoModel, error) {
-	return ts.ITodoRepository.FindById(id)
+func (ts *TodoService) FindTodoById(id int64) (*todo_model.TodoModel, error) {
+	return ts.ITodoRepository.FindTodoById(id)
 }
 
-func (ts *TodoService) FindAllByUserId(id int64) (*[]todo_model.TodoModel, error) {
-	return ts.ITodoRepository.FindAllByUserId(id)
+func (ts *TodoService) FindAllTodosByUserId(id int64) (*[]todo_model.TodoModel, error) {
+	return ts.ITodoRepository.FindAllTodosByUserId(id)
 }
 
-func (ts *TodoService) DeleteById(id int64) error {
-	return ts.ITodoRepository.DeleteById(id)
+func (ts *TodoService) DeleteTodoById(id int64) error {
+	return ts.ITodoRepository.DeleteTodoById(id)
 }

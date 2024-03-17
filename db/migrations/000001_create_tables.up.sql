@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS todos (
     status INTEGER DEFAULT 1,
     created_at DATE DEFAULT CURRENT_TIMESTAMP,
     last_modified_date DATE DEFAULT CURRENT_TIMESTAMP,
+    avaliable BOOLEAN DEFAULT TRUE,
     CONSTRAINT pk_todos PRIMARY KEY (id)
 );
 
@@ -14,8 +15,10 @@ CREATE TABLE IF NOT EXISTS users (
     last_name TEXT NOT NULL,
     email TEXT NOT NULL,
     password TEXT NOT NULL,
+    role INTEGER DEFAULT 1,
     created_at DATE DEFAULT CURRENT_TIMESTAMP,
     last_modified_date DATE DEFAULT CURRENT_TIMESTAMP,
+    avaliable BOOLEAN DEFAULT TRUE,
     CONSTRAINT pk_users PRIMARY KEY (id)
 );
 

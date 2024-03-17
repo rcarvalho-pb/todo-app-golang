@@ -16,7 +16,7 @@ type TodoController struct {
 	*service.TodoService
 }
 
-func New(service *service.TodoService) *TodoController {
+func NewTodoController(service *service.TodoService) *TodoController {
 	return &TodoController{
 		TodoService: service,
 	}
@@ -35,7 +35,7 @@ func (td *TodoController) CreateTodo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id, err := td.TodoService.Save(&todo)
+	id, err := td.TodoService.SaveTodo(&todo)
 	if err != nil {
 		response_json.ERROR(w, http.StatusUnprocessableEntity, err)
 		return
@@ -63,8 +63,8 @@ func (td *TodoController) UpdateTodo(w http.ResponseWriter, r *http.Request) {
 	response_json.JSON(w, http.StatusOK, id)
 }
 
-func (td *TodoController) FindAll(w http.ResponseWriter, r *http.Request) {
-	todos, err := td.TodoService.FindAll()
+func (td *TodoController) FindAllTodos(w http.ResponseWriter, r *http.Request) {
+	todos, err := td.TodoService.FindAllTodos()
 	if err != nil {
 		response_json.ERROR(w, http.StatusInternalServerError, err)
 		return
@@ -73,13 +73,13 @@ func (td *TodoController) FindAll(w http.ResponseWriter, r *http.Request) {
 	response_json.JSON(w, http.StatusOK, todos)
 }
 
-func (td *TodoController) FindById(w http.ResponseWriter, r *http.Request) {
+func (td *TodoController) FindTodoById(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.ParseInt(mux.Vars(r)["id"], 10, 64)
 	if err != nil {
 		response_json.ERROR(w, http.StatusUnprocessableEntity, err)
 		return
 	}
-	todo, err := td.TodoService.FindById(id)
+	todo, err := td.TodoService.FindTodoById(id)
 	if err != nil {
 		response_json.ERROR(w, http.StatusInternalServerError, err)
 		return
@@ -88,14 +88,14 @@ func (td *TodoController) FindById(w http.ResponseWriter, r *http.Request) {
 	response_json.JSON(w, http.StatusOK, todo)
 }
 
-func (td *TodoController) FindAllByUserId(w http.ResponseWriter, r *http.Request) {
+func (td *TodoController) FindAllTodosByUserId(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.ParseInt(mux.Vars(r)["id"], 10, 64)
 	if err != nil {
 		response_json.ERROR(w, http.StatusBadRequest, err)
 		return
 	}
 
-	todos, err := td.TodoService.FindAllByUserId(id)
+	todos, err := td.TodoService.FindAllTodosByUserId(id)
 	if err != nil {
 		response_json.ERROR(w, http.StatusInternalServerError, err)
 		return
@@ -104,14 +104,14 @@ func (td *TodoController) FindAllByUserId(w http.ResponseWriter, r *http.Request
 	response_json.JSON(w, http.StatusOK, todos)
 }
 
-func (td *TodoController) DeleteById(w http.ResponseWriter, r *http.Request) {
+func (td *TodoController) DeleteTodoById(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.ParseInt(mux.Vars(r)["id"], 10, 64)
 	if err != nil {
 		response_json.ERROR(w, http.StatusBadRequest, err)
 		return
 	}
 
-	if err = td.TodoService.DeleteById(id); err != nil {
+	if err = td.TodoService.DeleteTodoById(id); err != nil {
 		response_json.ERROR(w, http.StatusInternalServerError, err)
 		return
 	}
