@@ -1,6 +1,7 @@
 package service
 
 import (
+	"log"
 	"time"
 
 	todo_model "github.com/rcarvalho-pb/todo-app-golang/internal/model/todo"
@@ -21,10 +22,12 @@ func (ts *TodoService) CreateTodo(todo *todo_model.TodoModel) (int64, error) {
 }
 
 func (ts *TodoService) UpdateTodo(todo *todo_model.TodoModel) (int64, error) {
+	log.Println(todo)
 	loadTodo, err := ts.FindTodoById(todo.ID)
 	if err != nil {
 		return 0, err
 	}
+	log.Println(loadTodo)
 
 	if todo.Name == "" {
 		loadTodo.Name = todo.Name

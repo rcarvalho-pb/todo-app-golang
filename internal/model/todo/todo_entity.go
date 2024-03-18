@@ -11,7 +11,7 @@ type TodoModel struct {
 	ID               int64                  `db:"id,omitempty"`
 	Name             string                 `db:"name,omitempty"`
 	Description      string                 `db:"description,omitempty"`
-	Status           int64                  `db:"status,omitempty"`
+	Status           string                 `db:"status,omitempty"`
 	CreatedAt        time.Time              `db:"created_at,omitempty"`
 	LastModifiedDate time.Time              `db:"last_modified_date,omitempty"`
 	Avaliable        bool                   `db:"avaliable"`

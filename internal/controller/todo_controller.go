@@ -44,6 +44,11 @@ func (td *TodoController) CreateTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (td *TodoController) UpdateTodo(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.ParseInt(mux.Vars(r)["id"], 10, 64)
+	if err != nil {
+		response_json.ERROR(w, http.StatusBadRequest, err)
+		return
+	}
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		response_json.ERROR(w, http.StatusBadRequest, err)
@@ -55,7 +60,10 @@ func (td *TodoController) UpdateTodo(w http.ResponseWriter, r *http.Request) {
 		response_json.ERROR(w, http.StatusInternalServerError, err)
 		return
 	}
-	id, err := td.TodoService.UpdateTodo(&todo)
+
+	todo.ID = id
+
+	id, err = td.TodoService.UpdateTodo(&todo)
 	if err != nil {
 		response_json.ERROR(w, http.StatusInternalServerError, err)
 		return

@@ -1,6 +1,7 @@
 package service
 
 import (
+	"log"
 	"time"
 
 	user_model "github.com/rcarvalho-pb/todo-app-golang/internal/model/user"
@@ -22,6 +23,7 @@ func (us *UserService) SaveUser(user *user_model.UserModel) (int64, error) {
 
 func (us *UserService) UpdateUser(user *user_model.UserModel) (int64, error) {
 	loadUser, err := us.IUserRepository.FindUserById(user.ID)
+	log.Println(loadUser)
 	if err != nil {
 		return 0, err
 	}

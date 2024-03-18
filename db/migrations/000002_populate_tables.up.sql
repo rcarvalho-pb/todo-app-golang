@@ -4,8 +4,8 @@ INSERT INTO todos (name, description) VALUES
     ('Teste 03', 'Terceiro Teste');
 
 INSERT INTO users (first_name, last_name, email, password, role) VALUES
-    ('Ramon', 'Carvalho', 'ramon@email.com', '123', 2),
-    ('Emilly', 'Coeli', 'emilly@email.com', '123', 1);
+    ('Ramon', 'Carvalho', 'ramon@email.com', '123', 'admin'),
+    ('Emilly', 'Coeli', 'emilly@email.com', '123', 'user');
 
 INSERT INTO todos_users VALUES 
     (1, 1),
